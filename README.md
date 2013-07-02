@@ -8,25 +8,25 @@ LXDE and XFCE.
 To switch to a wallpaper:
 
 <pre>
-wallpaperChanger &ltpath-to-wallpaper&gt
+wallpaperChanger &lt;path-to-wallpaper&gt;
 </pre>
 
 To go through a list of wallpapers:
 
 <pre>
-wallpaperChanger -p &ltperiod-in-seconds&gt &ltpath-to-wallpapers&gt
+wallpaperChanger -p &lt;period-in-seconds&gt; &lt;path-to-wallpapers&gt;
 </pre>
 
 To cycle through a list of wallpapers:
 
 <pre>
-wallpaperChanger -r -p &ltperiod-in-seconds&gt &ltpath-to-wallpapers&gt
+wallpaperChanger -r -p &lt;period-in-seconds&gt; &lt;path-to-wallpapers&gt;
 </pre>
 
 To shuffle a list of wallpapers, then cycle through them:
 
 <pre>
-wallpaperChanger -s -r -p &ltperiod-in-seconds&gt &ltpath-to-wallpapers&gt
+wallpaperChanger -s -r -p &lt;period-in-seconds&gt; &lt;path-to-wallpapers&gt;
 </pre>
 
 ## To compile: 
