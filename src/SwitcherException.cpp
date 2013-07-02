@@ -16,6 +16,9 @@
     along with WallpaperChanger.  If not, see <http://www.gnu.org/licenses/>.
  *****************************************************************************/
 
+#include "SwitcherException.h"
+
+#include <string>
 
 const std::string SwitcherException::DEFAULT_MESSAGE
             = "Error when switching wallpapers";
