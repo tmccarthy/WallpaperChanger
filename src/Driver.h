@@ -28,7 +28,7 @@
 
 class Driver {
 public:
-	static const int DEFAULT_PERIOD = 10;
+	static const int DEFAULT_PERIOD = 300;
 	static const bool DEFAULT_DOES_REPEAT = false;
 	static const bool DEFAULT_DOES_SHUFFLE = false;
 
