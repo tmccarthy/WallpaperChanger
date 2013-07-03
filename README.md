@@ -41,6 +41,14 @@ cmake .
 make
 </pre>
 
+## To install:
+
+<pre>
+cmake .
+make preinstall
+make install
+</pre>
+
 ## Known bugs
 
 1. Referring to a wallpaper with a path containing the home folder symlink ("~")
