@@ -17,7 +17,7 @@
  *****************************************************************************/
 
 #include <vector>
-#include <iostream>
+#include <string>
 
 #include "XfceSwitcher.h"
 
@@ -34,25 +34,51 @@ XfceSwitcher::~XfceSwitcher() {
 void XfceSwitcher::performSwitch(Wallpaper& wallpaper) throw
 (SwitcherException) {
 
-    std::string binaryName = "xfconf-query";
+    try {
 
+        std::string binaryName = "xfconf-query";
+
+        // Try to change wallpaper of first monitor.
+        std::vector<std::string> arguments
+                = this->getSystemCallArguments(wallpaper, 0);
+
+        if (Utility::executeSystemCommand(binaryName, arguments) != 0) {
+            throw SwitcherException(
+                    "System command to switch wallpaper indicated error");
+        }
+
+        // Try to change wallpaper of other monitors. We simply loop up through
+        // the monitor numbers until the system call to change wallpapers 
+        // returns an error.
+        int monitorNum = 1;
+        bool badMonitor = false;
+
+        do {
+            arguments = this->getSystemCallArguments(wallpaper, monitorNum++);
+
+            badMonitor = 
+                    Utility::executeSystemCommand(binaryName, arguments) != 0;
+        } while (!badMonitor);
+        
+    } catch (SystemCommandException & e) {
+        throw SwitcherException(
+                std::string("System command failed with following error: \'")
+                + std::string(e.what()) + std::string("\'"));
+    }
+
+}
+
+std::vector<std::string> XfceSwitcher::getSystemCallArguments(
+        Wallpaper & wallpaper, int monitorNum) {
     std::vector<std::string> arguments;
 
     arguments.push_back("-c");
     arguments.push_back("xfce4-desktop");
     arguments.push_back("-p");
-    arguments.push_back("/backdrop/screen0/monitor0/image-path");
+    arguments.push_back("/backdrop/screen0/monitor"
+            + std::to_string(monitorNum) + "/image-path");
     arguments.push_back("-s");
     arguments.push_back(wallpaper.getFilePath());
 
-    try {
-        if (Utility::executeSystemCommand(binaryName, arguments) != 0) {
-            throw SwitcherException(
-                    "System command to switch wallpaper indicated error");
-        }
-    } catch (SystemCommandException & e) {
-        throw SwitcherException(
-                std::string("System command failed with following error: \'") 
-                + std::string(e.what()) + std::string("\'"));
-    }
+    return arguments;
 }

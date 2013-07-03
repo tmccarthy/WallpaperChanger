@@ -19,6 +19,9 @@
 #ifndef XFCESWITCHER_H
 #define	XFCESWITCHER_H
 
+#include <vector>
+#include <string>
+
 #include "Switcher.h"
 #include "Wallpaper.h"
 #include "SwitcherException.h"
@@ -39,6 +42,14 @@ public:
 
 private:
 
+    /**
+     * Returns a vector of arguments suitable for passing into 
+     * Utility::execureSystemCommand() with the "xfconf-query" binary.
+     * @param monitorNum the monitor whose wallpaper will be changed
+     */
+    std::vector<std::string> getSystemCallArguments(Wallpaper & wallpaper, 
+            int monitorNum);
+    
 };
 
 #endif	/* XFCESWITCHER_H */

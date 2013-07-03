@@ -53,9 +53,16 @@ int Utility::executeSystemCommand(std::string binaryName,
     // posix_spawn).
     argv[arguments.size() + 1] = (char*) 0;
     
+    // Suppress stdout and stderr
+    posix_spawn_file_actions_t actions;
+    posix_spawn_file_actions_init(&actions);
+    posix_spawn_file_actions_addclose(&actions, STDOUT_FILENO);
+    posix_spawn_file_actions_addclose(&actions, STDERR_FILENO);
+    
     std::fflush(NULL);
-    spawnStatus = posix_spawnp(&processID, binaryName.c_str(), NULL, NULL, 
+    spawnStatus = posix_spawnp(&processID, binaryName.c_str(), &actions, NULL, 
             argv.data(), environ);
+    posix_spawn_file_actions_destroy(&actions);
     
     
     if (spawnStatus == 0) {
