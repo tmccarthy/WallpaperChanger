@@ -25,6 +25,7 @@
 #include <memory>
 #include <algorithm>
 #include <iostream>
+#include <ctime>
 
 #include "Switcher.h"
 #include "CommandLineOptionException.h"
@@ -46,7 +47,9 @@ Driver::~Driver() {
 
 void Driver::run() throw (UnknownSessionException) {
     std::unique_ptr<Switcher> switcher = Switcher::generate();
-
+    
+    std::srand ( unsigned ( std::time(0) ) );
+    
     do {
         if (doesShuffle_) {
             std::random_shuffle(library_.begin(), library_.end());
