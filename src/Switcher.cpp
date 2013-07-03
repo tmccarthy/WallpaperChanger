@@ -35,13 +35,13 @@ Switcher::~Switcher() {
 void Switcher::switchWallpaperTo(Wallpaper& wallpaper)
 throw (SwitcherException) {
 
-    if (wallpaper.doesExist()) {
+    if (wallpaper.isFile()) {
         std::cout << "Switch to " << wallpaper.getFilePath() << std::endl;
 
         this->performSwitch(wallpaper);
     } else {
-        throw SwitcherException(std::string("File \'") + wallpaper.getFilePath()
-                + std::string("\' does not exist"));
+        throw SwitcherException(std::string("\'") + wallpaper.getFilePath()
+                + std::string("\' does not exist or is not a file."));
     }
 }
 

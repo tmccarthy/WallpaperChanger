@@ -42,10 +42,16 @@ public:
     
     /**
      * Indicates whether the file path associated with this Wallpaper references
-     * a file that actually exists;
+     * a file that actually exists.
      */
     bool doesExist();
 
+    /**
+     * Indicates whether the filepath associated with this Wallpaper references
+     * a file or symlink that actually exists.
+     */
+    bool isFile();
+    
 private:
     std::string filePath_;
 };

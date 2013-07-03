@@ -38,3 +38,7 @@ std::string Wallpaper::getFilePath() {
 bool Wallpaper::doesExist() {
     return bfs::exists(this->getFilePath());
 }
+
+bool Wallpaper::isFile() {
+    return this->doesExist() && !bfs::is_directory(bfs::path(filePath_));
+}
